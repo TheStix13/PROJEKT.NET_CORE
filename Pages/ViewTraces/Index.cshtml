@@ -2,5 +2,58 @@
 @model Projekt.NET_CORE.Pages.ViewTraces.IndexModel
 @{
 }
+</br>
+<div class="container row p-0 m-0">
+    <h1>Moje trasy</h1> 
+</div>
+</br>
+<div class="container row text-center">
+    <div class="m-1 col-3">
+        <a class="btn btn-primary form-control text-center text-white">Dodaj nową trasę</a>
+    </div>
+    <div class="m-1 col-3">
+        <a class="btn btn-danger form-control text-center text-white disabled">Usuń trasę</a>
+    </div> 
+</div>
+</br>
+<div class="container row p-0 m-0 col-12">
+    @if (Model.Traces.Count() == 0)
+    {
 
-<h1>Trasy</h1>
+    }
+    else
+    {
+        <table class="table table-bordered table-striped text-center">
+            <thead class="thead-dark">
+                <tr>
+                    <th></th>
+                    <th>Nazwa trasy</th>
+                    <th>Początek trasy</th>
+                    <th>Koniec trasy</th>
+                    <th>Data utworzenia</th>
+                    <th>Podgląd</th>
+                    <th></th>
+                </tr>
+
+                <tr>
+                    <td class="align-middle">
+                        <div class="input-group-prepend">
+                            <input type="radio">
+                        </div>
+                    </td>
+                    <td class="align-middle">Bieganie 24.10.2020</td>
+                    <td class="align-middle">WAT-POLIGON</td>
+                    <td class="align-middle">WAT-POLIGON</td>
+                    <td class="align-middle">19.12.2020</td>
+                    <td class="align-middle"></td>
+                    <td class="align-middle">
+                        <div class="p-1">
+                            <a class="btn btn-success form-control text-center text-white">Zobacz trasę na mapie</a>
+                        </div>
+                    </td>
+                </tr>
+            </thead>
+        </table>
+    }
+
+</div>
