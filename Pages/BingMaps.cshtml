@@ -1,0 +1,18 @@
+﻿@page
+@model Projekt.NET_CORE.Pages.BingMapsModel
+@{
+    ViewData["Title"] = "BingMaps";
+}
+
+
+
+<body style="width: 100%; height: 100%;">
+    <div id="myMap" style="position: absolute; padding:0; margin:0; width: 200%; height: 85vh; background-color: gray; "></div>
+</body>
+<script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=Ak22Tg8UA9AZMvtIQPfXhvZrK2T7sBcqHcGjr9MsgTzeaFMnhokp3ipl5xv17XKg' async defer></script>
+<script type='text/javascript'>
+    function GetMap() {
+        var map = new Microsoft.Maps.Map('#myMap');
+        //Add your post map load code here.
+    }
+</script>
