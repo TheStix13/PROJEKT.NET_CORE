@@ -22,6 +22,10 @@
 <script type='text/javascript'>
     function GetMap() {
         var map = new Microsoft.Maps.Map('#myMap');
+        Microsoft.Maps.loadModule('Microsoft.Maps.GeoXml', function () {
+            var layer = new Microsoft.Maps.GeoXmlLayer('http://192.168.184.1:8887/yorkshiredalescenturionwalk.gpx');
+            map.layers.insert(layer);
+        });
         //Add your post map load code here.
     }
 </script>

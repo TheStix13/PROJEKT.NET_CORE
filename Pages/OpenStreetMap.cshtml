@@ -5,45 +5,46 @@
 }
 
 
-<style>
-    #mapid {
-        margin-left: 0;
-        width: 100vw;
-        height: 82vh;
-        background-color: gray;
-        padding: 0;
-    }
-</style>
-
-
-
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-      integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-      crossorigin="" />
-
-<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-        crossorigin=""></script>
-<body style="width: 100%; margin:0;">
-    <div id="mapid"></div>
+<head>
+    <title>Leaflet</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link type="text/css" rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link type="text/css" rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div id="leaflet" style="height:100vh"></div>
+    <input type="file" id="file1" />
+    <br>
+    <button onclick="fn1"id="btn1">Click me</button>
     <script src="https://unpkg.com/leaflet/dist/leaflet-src.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-gpx/1.4.0/gpx.min.js"></script>
 </body>
+
+
+
+
 <script>
-    var map = new L.Map('mapid', {
+    function fn1() {
+        console.log(document.getElementById("file1").file[0].value);
+        const gpx = 'file:///C:/Users/maxde/Downloads/yorkshiredalescenturionwalk.gpx'
+        new L.GPX(gpx, { async: true }).on('loaded', function (e) {
+            map.fitBounds(e.target.getBounds());
+        }).addTo(map);
+    }
+    var map = new L.Map('leaflet', {
         layers: [
-            new L.TileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 'attribution': 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
             })
-        ],
-        center: [51.505, -0.09],
-        zoom: 13
+        ], 
+        center: [0, 0],
+        zoom: 0 
     });
-
-    var gpx = 'mapstogpx20210120_133956.gpx'; // URL to your GPX file or the GPX itself
+    const gpx = 'http://192.168.184.1:8887/Do%20uj_cia%20Bugu%20(bezdro_ami%20p%C3%B3_nocnego%20Mazowsza%20V).gpx'
     new L.GPX(gpx, { async: true }).on('loaded', function (e) {
         map.fitBounds(e.target.getBounds());
     }).addTo(map);
-
 </script>
+
 

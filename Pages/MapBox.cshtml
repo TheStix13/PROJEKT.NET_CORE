@@ -10,22 +10,21 @@
         width: 99vw;
         height: 80vh;
         background-color: gray;
-        padding:0;
+        padding: 0;
     }
 </style>
 
 <head>
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.0.0/mapbox-gl.js'></script>
-<link href='https://api.mapbox.com/mapbox-gl-js/v2.0.0/mapbox-gl.css' rel='stylesheet' />
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.0.0/mapbox-gl.css' rel='stylesheet' />
 </head>
 <body style="width: 100%; margin:0;">
     <div id='map'></div>
-    </body>
-    <script>
-
-        mapboxgl.accessToken = 'pk.eyJ1IjoibWF4ZGVsMTIzIiwiYSI6ImNrazdkOGViMDA5cHkydmxuY2czaDZmdGoifQ.DDBmV-ncFK5iyZVuS6wlqQ';
-        var map = new mapboxgl.Map({
-            container: 'map',
-            style: 'mapbox://styles/mapbox/streets-v11'
-        });
-    </script>
+</body>
+<script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoibWF4ZGVsMTIzIiwiYSI6ImNrazdkOGViMDA5cHkydmxuY2czaDZmdGoifQ.DDBmV-ncFK5iyZVuS6wlqQ';
+    var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v11'
+    });
+</script>
