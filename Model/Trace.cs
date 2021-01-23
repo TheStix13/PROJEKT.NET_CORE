@@ -11,7 +11,6 @@ namespace Projekt.NET_CORE.wwwroot.Model
         [Key]
         public int Id { get; set; }
 
-        [Required]
         public int UserId { get; set; }
 
         [Required]
@@ -24,9 +23,8 @@ namespace Projekt.NET_CORE.wwwroot.Model
         public string TraceEnd { get; set; }
 
         [Required]
-        public string Date { get; set; }
+        public DateTime Date { get; set; }
 
-        [Required]
         public string TracePoints { get; set; }
     }
 }
