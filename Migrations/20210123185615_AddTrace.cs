@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Projekt.NET_CORE.Migrations
 {
@@ -16,8 +17,8 @@ namespace Projekt.NET_CORE.Migrations
                     TraceName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TraceStart = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TraceEnd = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Date = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TracePoints = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TracePoints = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {

@@ -3,57 +3,68 @@
 @{
 }
 </br>
+<div>
+
+</div>
 <div class="container row p-0 m-0">
     <h1>Moje trasy</h1> 
 </div>
 </br>
-<div class="container row text-center">
-    <div class="m-1 col-3">
-        <a class="btn btn-primary form-control text-center text-white">Dodaj nową trasę</a>
-    </div>
-    <div class="m-1 col-3">
-        <a class="btn btn-danger form-control text-center text-white disabled">Usuń trasę</a>
-    </div> 
-</div>
-</br>
-<div class="container row p-0 m-0 col-12">
+<div>
     @if (Model.Traces.Count() == 0)
     {
-
+        <div class="container row text-center">
+            <div class="m-1 col-3">
+                <a class="btn btn-primary form-control text-center text-white" asp-page="Add">Dodaj nową trasę</a>
+            </div>
+        </div>
     }
-    else
-    {
-        <table class="table table-bordered table-striped text-center">
-            <thead class="thead-dark">
-                <tr>
-                    <th></th>
-                    <th>Nazwa trasy</th>
-                    <th>Początek trasy</th>
-                    <th>Koniec trasy</th>
-                    <th>Data utworzenia</th>
-                    <th>Podgląd</th>
-                    <th></th>
-                </tr>
+    </br>
+    <div class="container row p-0 m-0 col-12">
+        @if (Model.Traces.Count() == 0)
+        {
+            <div class="row col-12 alert alert-danger" role="alert">
+                Wygląda na to, że w bazie nie posiadasz jeszcze ani jednej trasy :(
+            </div>
+        }
+        else
+        {
+            <table class="table table-bordered table-striped text-center">
+                <thead class="thead-dark">
+                    <tr>
+                        <th class="align-middle">Nazwa trasy</th>
+                        <th class="align-middle">Początek trasy</th>
+                        <th class="align-middle">Koniec trasy</th>
+                        <th class="align-middle">Data utworzenia</th>
+                        <th colspan="2">
+                            <a class="btn btn-primary form-control text-center text-white" asp-page="Add">Dodaj nową trasę</a>
+                        </th>
+                    </tr>
+                    <fieldset class="form-group">
+                        @foreach (var item in Model.Traces)
+                        {
+                            <tr>
+                                <td class="align-middle">@Html.DisplayFor(m => item.TraceName)</td>
+                                <td class="align-middle">@Html.DisplayFor(m => item.TraceStart)</td>
+                                <td class="align-middle">@Html.DisplayFor(m => item.TraceEnd)</td>
+                                <td class="align-middle">@Html.DisplayFor(m => item.Date.Date)</td>
+                                <td class="align-middle">
+                                    <div class="p-1">
+                                        <a class="btn btn-danger form-control text-center text-white">Usuń trasę</a>
+                                    </div>
+                                </td>
+                                <td class="align-middle">
+                                    <div class="p-1">
+                                        <a class="btn btn-success form-control text-center text-white" asp-page="Show/OpenStreetMap">Zobacz trasę na mapie</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </fieldset>
+                </thead>
+            </table>
+        }
 
-                <tr>
-                    <td class="align-middle">
-                        <div class="input-group-prepend">
-                            <input type="radio">
-                        </div>
-                    </td>
-                    <td class="align-middle">Bieganie 24.10.2020</td>
-                    <td class="align-middle">WAT-POLIGON</td>
-                    <td class="align-middle">WAT-POLIGON</td>
-                    <td class="align-middle">19.12.2020</td>
-                    <td class="align-middle"></td>
-                    <td class="align-middle">
-                        <div class="p-1">
-                            <a class="btn btn-success form-control text-center text-white">Zobacz trasę na mapie</a>
-                        </div>
-                    </td>
-                </tr>
-            </thead>
-        </table>
-    }
-
+    </div>
 </div>
+
