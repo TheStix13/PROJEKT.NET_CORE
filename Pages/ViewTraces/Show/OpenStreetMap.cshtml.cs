@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Projekt.NET_CORE.Pages.ViewTraces.Show
+namespace Projekt.NET_CORE.Pages
 {
     public class OpenStreetMapModel : PageModel
     {

@@ -1,4 +1,36 @@
 ﻿@page
-@model Projekt.NET_CORE.Pages.ViewTraces.Show.OpenStreetMapModel
+@model Projekt.NET_CORE.Pages.OpenStreetMapModel
 @{
+    ViewData["Title"] = "OpenStreetMap";
 }
+
+
+<head>
+    <title>Leaflet</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link type="text/css" rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link type="text/css" rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div id="leaflet" style="height:100vh"></div>
+    <script src="https://unpkg.com/leaflet/dist/leaflet-src.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-gpx/1.4.0/gpx.min.js"></script>
+</body>
+
+
+<script>
+    var map = new L.Map('leaflet', {
+        layers: [
+            new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                'attribution': 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+            })
+        ],
+        center: [0, 0],
+        zoom: 0
+    });
+    const gpx = 'http://192.168.184.1:8887/Do%20uj_cia%20Bugu%20(bezdro_ami%20p%C3%B3_nocnego%20Mazowsza%20V).gpx'
+    new L.GPX(gpx, { async: true }).on('loaded', function (e) {
+        map.fitBounds(e.target.getBounds());
+    }).addTo(map);
+</script>

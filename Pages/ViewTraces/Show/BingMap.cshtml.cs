@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Projekt.NET_CORE.Pages.ViewTraces.Show
+namespace Projekt.NET_CORE.Pages
 {
-    public class BingMapModel : PageModel
+    public class BingMapsModel : PageModel
     {
         public void OnGet()
         {

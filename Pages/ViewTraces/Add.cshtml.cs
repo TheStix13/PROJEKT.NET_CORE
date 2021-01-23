@@ -44,7 +44,7 @@ namespace Projekt.NET_CORE.Pages.ViewTraces
             }
             
             trace.UserId = 1;
-            string pathToFile = _config.GetValue<string>("FTP:adress") + trace.Id + "_" + trace.UserId + "_" + file.FileName;
+            string pathToFile = _config.GetValue<string>("FTP:adress") + ID + "_" + trace.UserId + "_" + file.FileName;
             trace.TracePoints = pathToFile;
 
             if (ModelState.IsValid)
