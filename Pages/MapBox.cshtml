@@ -29,8 +29,17 @@
             .setView([40, -74.50], 9)
             .addLayer(L.mapbox.styleLayer('mapbox://styles/mapbox/streets-v11'));
         const gpx = 'http://192.168.184.1:8887/Do%20uj_cia%20Bugu%20(bezdro_ami%20p%C3%B3_nocnego%20Mazowsza%20V).gpx'
-        new L.GPX(gpx, { async: true }).on('loaded', function (e) {
+        new L.GPX(gpx, {
+            async: true, marker_options: {
+                wptIcons: {
+                    wptIconUrls: {
+                        '': 'https://raw.githubusercontent.com/mpetazzoni/leaflet-gpx/main/pin-icon-end.png',
+                    },
+                }
+            }
+        }).on('loaded', function (e) {
             map.fitBounds(e.target.getBounds());
         }).addTo(map);
+
     </script>
 </body>

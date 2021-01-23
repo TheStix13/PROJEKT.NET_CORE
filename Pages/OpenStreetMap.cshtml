@@ -14,24 +14,12 @@
 </head>
 <body>
     <div id="leaflet" style="height:100vh"></div>
-    <input type="file" id="file1" />
-    <br>
-    <button onclick="fn1"id="btn1">Click me</button>
     <script src="https://unpkg.com/leaflet/dist/leaflet-src.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-gpx/1.4.0/gpx.min.js"></script>
 </body>
 
 
-
-
 <script>
-    function fn1() {
-        console.log(document.getElementById("file1").file[0].value);
-        const gpx = 'file:///C:/Users/maxde/Downloads/yorkshiredalescenturionwalk.gpx'
-        new L.GPX(gpx, { async: true }).on('loaded', function (e) {
-            map.fitBounds(e.target.getBounds());
-        }).addTo(map);
-    }
     var map = new L.Map('leaflet', {
         layers: [
             new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
