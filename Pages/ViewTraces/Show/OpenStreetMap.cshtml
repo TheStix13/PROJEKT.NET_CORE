@@ -19,21 +19,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link type="text/css" rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <link type="text/css" rel="stylesheet" href="~/css/mapStyle.css" />
+    <style>
+        #sidebarCollapse {
+            position: absolute;
+            z-index: 9;
+            background-color: #2f89fc;
+            width: 50px;
+            height: 50px;
+            opacity: 1;
+            text-align: center;
+            margin-left: -40px;
+        }
+
+            #sidebarCollapse:hover {
+                background-color: #174d91;
+                opacity: 1;
+            }
+
+        #map {
+ 
+            position: relative;
+            margin-left: 0;
+            height: 100vh;
+            background-color: gray;
+            padding: 0;
+        }
+
+        #bars {
+            font-size: 30px;
+            text-shadow: 1px 1px #000000;
+            color: white;
+        }
+    </style>
 </head>
 <body>
 
     <div class="wrapper d-flex align-items-stretch">
         <nav id="sidebar">
             <div class="custom-menu">
-                <button type="button" id="sidebarCollapse" class="btn btn-primary">
-                    <i class="fa fa-bars"></i>
+                <button type="button" class="btn" id="sidebarCollapse">
+                    <i class="fa fa-bars" id="bars"></i>
                     <span class="sr-only">Toggle Menu</span>
                 </button>
             </div>
             <h1><a href="index.html" class="logo">GPX Trace Viewer</a></h1>
             <ul class="list-unstyled components mb-5">
                 <li class="active">
-                    <a asp-page="/ViewTraces/Index"><span class="fa fa-pencil mr-3"></span> Panel tras</a>
+                    <a asp-page="/Index"><span class="fa fa-pencil mr-3"></span> Panel tras</a>
                 </li>
                 <li>
                     <a asp-page="/ViewTraces/Show/OpenStreetMap"><span class="fa fa-map mr-3"></span> OpenStreetMap</a>
@@ -47,8 +79,8 @@
             </ul>
         </nav>
 
-        <div id="content" class="p-4 p-md-5 pt-5">
-            <div id="leaflet" style="height:100vh"></div>
+        <div id="content">
+            <div id="map"></div>
             <script src="https://unpkg.com/leaflet/dist/leaflet-src.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-gpx/1.4.0/gpx.min.js"></script>
         </div>
@@ -59,7 +91,7 @@
     <script src="~/js/bootstrap.min.js"></script>
     <script src="~/js/main.js"></script>
     <script>
-        var map = new L.Map('leaflet', {
+        var map = new L.Map('map',  {
             layers: [
                 new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     'attribution': 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
@@ -68,7 +100,7 @@
             center: [0, 0],
             zoom: 0
         });
-        const gpx = 'ftp://epiz_27758932:Bx0DduRUoBL@ftpupload.net/htdocs/GPX/0_1_mapstogpx20210119_154254.gpx'
+        const gpx = 'C:\Users\rafal\source\repos\Projekt.NET_CORE\Pages\ViewTraces\Show\TemporaryTraces\mapstogpx20210119_154254.gpx'
         new L.GPX(gpx, { async: true }).on('loaded', function (e) {
             map.fitBounds(e.target.getBounds());
         }).addTo(map);
