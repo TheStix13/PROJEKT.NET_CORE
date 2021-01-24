@@ -28,7 +28,7 @@
             height: 50px;
             opacity: 1;
             text-align: center;
-            margin-left: -40px;
+            margin-left: -30px;
         }
 
             #sidebarCollapse:hover {
@@ -37,7 +37,6 @@
             }
 
         #map {
- 
             position: relative;
             margin-left: 0;
             height: 100vh;
@@ -80,9 +79,26 @@
         </nav>
 
         <div id="content">
-            <div id="map"></div>
             <script src="https://unpkg.com/leaflet/dist/leaflet-src.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-gpx/1.4.0/gpx.min.js"></script>
+            <div id="map"></div>
+            <script>
+                var map = new L.Map('map', {
+                    zoomControl: false,
+                    layers: [
+                        new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                            'attribution': 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+                        })
+                    ],
+                    center: [0, 0],
+                    zoom: 0
+                });
+                const gpx = 'http://192.168.184.1:8887/Do%20uj_cia%20Bugu%20(bezdro_ami%20p%C3%B3_nocnego%20Mazowsza%20V).gpx'
+                new L.GPX(gpx, { async: true }).on('loaded', function (e) {
+                    map.fitBounds(e.target.getBounds());
+                }).addTo(map);
+            </script>
+
         </div>
     </div>
 
@@ -90,21 +106,7 @@
     <script src="~/js/popper.js"></script>
     <script src="~/js/bootstrap.min.js"></script>
     <script src="~/js/main.js"></script>
-    <script>
-        var map = new L.Map('map',  {
-            layers: [
-                new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    'attribution': 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
-                })
-            ],
-            center: [0, 0],
-            zoom: 0
-        });
-        const gpx = 'C:\Users\rafal\source\repos\Projekt.NET_CORE\Pages\ViewTraces\Show\TemporaryTraces\mapstogpx20210119_154254.gpx'
-        new L.GPX(gpx, { async: true }).on('loaded', function (e) {
-            map.fitBounds(e.target.getBounds());
-        }).addTo(map);
-    </script>
+    
 </body>
 </html>
 
