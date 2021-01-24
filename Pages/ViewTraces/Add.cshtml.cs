@@ -39,7 +39,7 @@ namespace Projekt.NET_CORE.Pages.ViewTraces
             }
             else
             {
-                lastTrace = _database.Trace.Last();
+                lastTrace = _database.Trace.OrderBy(item=> item.Id).Last();
                 ID = lastTrace.Id + 1;
             }
             
