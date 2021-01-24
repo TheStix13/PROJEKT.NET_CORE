@@ -43,11 +43,24 @@
                     <fieldset class="form-group">
                         @foreach (var item in Model.Traces)
                         {
+                            string day = item.Date.Day.ToString();
+                            string month = item.Date.Day.ToString();
+                            if (item.Date.Day<10)
+                            {
+                                day = "0" + item.Date.Day;
+                            }
+                            else
+                            if(item.Date.Month<10)
+                            {
+                                month = "0" + item.Date.Month;
+                            }
+
+                            string date = day+"."+ month + "." + item.Date.Year;
                             <tr>
                                 <td class="align-middle">@Html.DisplayFor(m => item.TraceName)</td>
                                 <td class="align-middle">@Html.DisplayFor(m => item.TraceStart)</td>
                                 <td class="align-middle">@Html.DisplayFor(m => item.TraceEnd)</td>
-                                <td class="align-middle">@Html.DisplayFor(m => item.Date.Date)</td>
+                                <td class="align-middle">@date</td>
                                 <td class="align-middle">
                                     <div class="p-1">
                                         <a class="btn btn-danger form-control text-center text-white">Usuń trasę</a>

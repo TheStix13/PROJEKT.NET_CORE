@@ -2,6 +2,7 @@
 @model Projekt.NET_CORE.Pages.ViewTraces.AddModel
 @{
 }
+
 <br />
 <h1>Dodaj nową trasę do bazy</h1>
 <br />
@@ -13,16 +14,13 @@
             <h2>Nowa trasa</h2>
         </div>
         <br />
-        <div class="row col-12 alert alert-danger" role="alert" asp-validation-summary="ModelOnly">
-            W formularzu wystąpiły błędy poraw je !
-        </div>
         <div class="row col-12">
             <div class="form-group col-6">
                 <div>
                     <label style="font-weight: bold">Nazwa trasy</label>
                 </div>
                 <div>
-                    <input asp-for="Trace.TraceName" class="form-control" placeholder="Nazwa trasy" required/>
+                    <input asp-for="Trace.TraceName" class="form-control" placeholder="Nazwa trasy" required />
                 </div>
             </div>
             <div class="form-group col-6">
@@ -30,7 +28,10 @@
                     <label style="font-weight: bold">Data</label>
                 </div>
                 <div>
-                    <input asp-for="Trace.Date" type="date" class="form-control" required/>
+                    <input type="date" class="form-control" id="dateInput" required />
+                    <div style="display: none" class="alert alert-danger mt-3" id="dateAlert">
+                        This is a danger alert—check it out!
+                    </div>
                 </div>
             </div>
             <div class="form-group col-6">
@@ -38,7 +39,7 @@
                     <label style="font-weight: bold">Początek trasy</label>
                 </div>
                 <div>
-                    <input asp-for="Trace.TraceStart" class="form-control" placeholder="Nazwa miejsca rozpoczęcia trasy" required/>
+                    <input asp-for="Trace.TraceStart" class="form-control" placeholder="Nazwa miejsca rozpoczęcia trasy" required />
                 </div>
             </div>
             <div class="form-group col-6">
@@ -46,7 +47,7 @@
                     <label style="font-weight: bold">Koniec trasy</label>
                 </div>
                 <div>
-                    <input asp-for="Trace.TraceEnd" class="form-control" placeholder="Nazwa miejsca zakończenia trasy" required/>
+                    <input asp-for="Trace.TraceEnd" class="form-control" placeholder="Nazwa miejsca zakończenia trasy" required />
                 </div>
             </div>
             <div class="col-12">
@@ -54,16 +55,17 @@
             </div>
             <div class="form-group col-12">
                 <div>
-                    <label class=" m-sm-3" for="customFile">Wybierz plik GPX</label>
-                    <input  type="file" name="file" id="customFile" accept=".gpx" required>
+
+                    <input type="file" name="file" accept=".gpx" id="customFileInput" class="custom-file-input" aria-describedby="customFileInput" required>
+                    <label class="custom-file-label m-sm-3" id="customFileLabel" for="customFileInput"></label>
                 </div>
             </div>
-            <div class="form-group col-12 p-2 mt-4 row">
-                <div class="col-6 p-2">
-                    <input  type="submit" class="btn btn-success w-100" value="Dodaj !" />
+            <div class="form-group col-12 ml-1 mt-5 row">
+                <div class="col-6 p-2 text-center">
+                    <input type="submit" class="btn btn-success w-75" value="Dodaj !" />
                 </div>
-                <div class="col-6 p-2">
-                    <a asp-page="Index" class="btn btn-danger w-100"> Wróć do listy</a>
+                <div class="col-6 p-2 text-center">
+                    <a asp-page="Index" class="btn btn-danger w-75"> Wróć do listy</a>
                 </div>
             </div>
         </div>
