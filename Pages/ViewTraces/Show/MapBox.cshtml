@@ -82,7 +82,7 @@
                 var map = L.mapbox.map('map', 'mapbox.streets', { zoomControl: false })
                     .setView([40, -74.50], 9)
                     .addLayer(L.mapbox.styleLayer('mapbox://styles/mapbox/streets-v11'));
-                const gpx = 'ftp://epiz_27758932:Bx0DduRUoBL@ftpupload.net/htdocs/GPX/0_1_mapstogpx20210119_154254.gpx'
+                const gpx = 'http://127.0.0.1:8887/0_1_mapstogpx20210119_154254%20(6).gpx'
                 new L.GPX(gpx, {
                     async: true, marker_options: {
                         wptIcons: {
