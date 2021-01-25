@@ -28,7 +28,7 @@
         var map = L.mapbox.map('map')
             .setView([40, -74.50], 9)
             .addLayer(L.mapbox.styleLayer('mapbox://styles/mapbox/streets-v11'));
-        const gpx = 'http://192.168.184.1:8887/Do%20uj_cia%20Bugu%20(bezdro_ami%20p%C3%B3_nocnego%20Mazowsza%20V).gpx'
+        const gpx = 'http://192.168.184.1:8887/mapstogpx20210125_102417.gpx'
         new L.GPX(gpx, {
             async: true, marker_options: {
                 wptIcons: {
