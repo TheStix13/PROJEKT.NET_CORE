@@ -93,7 +93,7 @@
                     center: [0, 0],
                     zoom: 0
                 });
-                const gpx = 'http://192.168.184.1:8887/Do%20uj_cia%20Bugu%20(bezdro_ami%20p%C3%B3_nocnego%20Mazowsza%20V).gpx'
+                const gpx = 'http://127.0.0.1:8887/0_1_mapstogpx20210119_154254%20(6).gpx'
                 new L.GPX(gpx, { async: true }).on('loaded', function (e) {
                     map.fitBounds(e.target.getBounds());
                 }).addTo(map);
