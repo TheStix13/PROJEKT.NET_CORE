@@ -3,16 +3,43 @@
 @{
     ViewData["Title"] = "MapBox";
 }
+
 <head>
-    <script src='https://api.mapbox.com/mapbox-gl-js/v2.0.0/mapbox-gl.js'></script>
-<link href='https://api.mapbox.com/mapbox-gl-js/v2.0.0/mapbox-gl.css' rel='stylesheet' />
+    <meta charset=utf-8 />
+    <title>A simple map</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.js'></script>
+    <link href='https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.css' rel='stylesheet' />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-gpx/1.4.0/gpx.min.js"></script>
+    <style>
+        #map {
+            margin-left: 0;
+            width: 99vw;
+            height: 80vh;
+            background-color: gray;
+            padding: 0;
+        }
+    </style>
 </head>
-<div id='map' style='width: 100vw; height: 100vh;'></div>
-<script>
-    
-    mapboxgl.accessToken = 'pk.eyJ1IjoibWF4ZGVsMTIzIiwiYSI6ImNrazdkOGViMDA5cHkydmxuY2czaDZmdGoifQ.DDBmV-ncFK5iyZVuS6wlqQ';
-    var map = new mapboxgl.Map({
-        container: 'map',
-        style: 'mapbox://styles/mapbox/streets-v11'
-    });
-</script>
+<body>
+    <div id='map'></div>
+    <script>
+        L.mapbox.accessToken = 'pk.eyJ1IjoibWF4ZGVsMTIzIiwiYSI6ImNrazdkOGViMDA5cHkydmxuY2czaDZmdGoifQ.DDBmV-ncFK5iyZVuS6wlqQ';
+        var map = L.mapbox.map('map')
+            .setView([40, -74.50], 9)
+            .addLayer(L.mapbox.styleLayer('mapbox://styles/mapbox/streets-v11'));
+        const gpx = 'http://127.0.0.1:8887/0_1_mapstogpx20210119_154254%20(6).gpx'
+        new L.GPX(gpx, {
+            async: true, marker_options: {
+                wptIcons: {
+                    wptIconUrls: {
+                        '': 'https://raw.githubusercontent.com/mpetazzoni/leaflet-gpx/main/pin-icon-end.png',
+                    },
+                }
+            }
+        }).on('loaded', function (e) {
+            map.fitBounds(e.target.getBounds());
+        }).addTo(map);
+
+    </script>
+</body>
