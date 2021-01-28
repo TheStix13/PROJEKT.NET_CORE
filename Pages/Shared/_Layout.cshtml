@@ -6,6 +6,7 @@
     <title>GPX Trace Viewer</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" rel="stylesheet" />
 </head>
 <body>
     <header>
@@ -25,6 +26,7 @@
                             <a class=" nav-link text-white font-weight-bold btn btn-success ml-3" style = "width: 200px" asp-area="" asp-page="/Traces/Add">Dodaj trasę</a>
                         </li>
                     </ul>
+                    <partial name ="_LoginPartial.cshtml "/>
                 </div>
             </div>
         </nav>

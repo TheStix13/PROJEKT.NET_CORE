@@ -48,6 +48,8 @@ namespace Projekt.NET_CORE
 
             app.UseRouting();
 
+            app.UseAuthentication();
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
