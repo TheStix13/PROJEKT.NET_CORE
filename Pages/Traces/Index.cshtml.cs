@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -34,7 +35,21 @@ namespace Projekt.NET_CORE.Pages.ViewTraces
             {
                 return NotFound();
             }
+            try
+            {
+                if(System.IO.File.Exists(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/GPX", trace.TracePoints)))
+                {
+                    System.IO.File.Delete(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/GPX", trace.TracePoints));
+                }
+            }
+            catch(IOException e)
+            {
+                Console.WriteLine(e.Message);
+            }
 
+            /*
+             *Dla po³¹czenia i wrzucania plików na FTP
+             *
             FtpWebRequest request = (FtpWebRequest)WebRequest.Create(trace.TracePoints);
             request.Method = WebRequestMethods.Ftp.DeleteFile;
             request.Credentials = new NetworkCredential(_config.GetValue<string>("FTP:username"), _config.GetValue<string>("FTP:password"));
@@ -43,6 +58,8 @@ namespace Projekt.NET_CORE.Pages.ViewTraces
             {
                 Console.WriteLine(response.StatusDescription);
             }
+            */
+
             _database.Trace.Remove(trace);
             await _database.SaveChangesAsync();
             return RedirectToPage("Index");

@@ -3,7 +3,22 @@
 @{
     ViewData["Title"] = "Home page";
 }
+@{ 
+    Layout = "_MainPageLayout";
+}
 
-<div class="text-center">
-    <h1>HEllo there, tutaj coś jeszcze kiedyś powstanie</h1>
+<div class="text-center" style="text-align: center">
+    <h1 style="margin-top: 40vh">GPX Map Viewer</h1>
+    </br>
+    <h3>Oglądaj swoje trasy tak jak lubisz !</h3>
+    </br>
+    </br>
+    <div class="row">
+        <div class="col-6">
+            <a class="nav-link text-white font-weight-bold btn btn-primary float-right mr-4" style="width: 200px;" asp-area="" asp-page="/Traces/Index">Pokaż trasy</a>
+        </div>
+        <div class="col-6 ">
+            <a class="nav-link font-weight-bold text-white btn btn-success float-left ml-4" style="width: 200px" asp-area="" asp-page="/Traces/Add">Dodaj trasę</a>
+        </div>
+    </div>
 </div>
