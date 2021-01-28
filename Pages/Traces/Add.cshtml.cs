@@ -4,11 +4,13 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Configuration;
+using Projekt.NET_CORE.Model;
 using Projekt.NET_CORE.wwwroot.Model;
 
 namespace Projekt.NET_CORE.Pages.ViewTraces
@@ -17,6 +19,7 @@ namespace Projekt.NET_CORE.Pages.ViewTraces
     {
         private readonly ApplicationDbContext _database;
         private readonly IConfiguration _config;
+        private object blokowacz = new object();
         public Trace Trace { set; get; }
 
         public AddModel(ApplicationDbContext db, IConfiguration config)
@@ -43,46 +46,44 @@ namespace Projekt.NET_CORE.Pages.ViewTraces
                 ID = lastTrace.Id + 1;
             }
             
-            
-
             if (ModelState.IsValid)
             {
                 if (file != null)
                 {
                     string GPXName = ID+"_"+trace.Id+"_"+file.FileName;
-                    string SavePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/GPX", GPXName);
-                    using (var stream = new FileStream(SavePath, FileMode.Create))
-                    {
-                        file.CopyTo(stream);
-                    }
 
-                    string filename = GPXName;
+                    FileObj fileObject = new FileObj(file, GPXName);
+                    Object paramObj = (Object)fileObject;
+                    Thread watek = new Thread(saveFile);
+                    watek.Start(paramObj);
+
                     trace.UserId = 1;
-                    trace.TracePoints = filename;
+                    trace.TracePoints = GPXName;
 
                     await _database.Trace.AddAsync(trace);
                     await _database.SaveChangesAsync();
-
-                    /*
-                     * Dla po³¹czenia z FTP
-                     * 
-                    FtpWebRequest request = (FtpWebRequest)WebRequest.Create(pathToFile);
-                    request.Credentials = new NetworkCredential(_config.GetValue<string>("FTP:username"), _config.GetValue<string>("FTP:password"));
-                    request.Method = WebRequestMethods.Ftp.UploadFile;
-
-                    using (Stream ftpStream = request.GetRequestStream())
-                    {
-                        file.CopyTo(ftpStream);
-                    }
-                    */
                 }
-
                 return RedirectToPage("Index");
             }
             else
             {
                 return Page();
             }
+        }
+
+        public void saveFile(object obj)
+        {
+
+            FileObj file = (FileObj)obj;
+
+            lock(blokowacz)
+            {
+                string SavePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/GPX", file.getName());
+                using (var stream = new FileStream(SavePath, FileMode.Create))
+                {
+                    file.getFile().CopyTo(stream);
+                }
+            }    
         }
     }
 }

@@ -5,20 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>GPX Trace Viewer</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <style>
+        #welcomeScreen {
+            background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/World_location_map_%28equirectangular_180%29.svg/2521px-World_location_map_%28equirectangular_180%29.svg.png");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            height: 100vh;
+            width: 100vw;
+            padding-top: 40vh;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <main role="main">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
+    <div id="welcomeScreen">
         <div class="container">
-            &copy; 2021 - Projekt.NET_CORE - <a asp-area="" asp-page="/Privacy">Privacy</a>
+            <main role="main">
+                @RenderBody()
+            </main>
         </div>
-    </footer>
+    </div>
+    
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
