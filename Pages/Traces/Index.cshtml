@@ -66,7 +66,7 @@
                                 <button asp-page-handler="Delete" asp-route-id="@item.Id" onclick="return confirm('Czy na pewno chcesz usunąć trasę ?')" class=" p-1 btn btn-danger form-control text-center text-white">Usuń trasę</button>
                             </td>
                             <td class="align-middle">
-                                <a class=" p-1 btn btn-success form-control text-center text-white" asp-page="Show/OpenStreetMap">Zobacz trasę na mapie</a>
+                                <a asp-route-id="@item.Id" class=" p-1 btn btn-success form-control text-center text-white" asp-page="/OpenStreetMap">Zobacz trasę na mapie</a>
                             </td>
                         </tr>
                     }

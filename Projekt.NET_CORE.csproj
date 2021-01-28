@@ -15,7 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\ViewTraces\Show\TemporaryTraces\" />
     <Folder Include="wwwroot\GPX\" />
   </ItemGroup>
 

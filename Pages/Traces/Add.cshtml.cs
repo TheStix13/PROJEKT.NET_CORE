@@ -43,22 +43,38 @@ namespace Projekt.NET_CORE.Pages.ViewTraces
                 ID = lastTrace.Id + 1;
             }
             
-            trace.UserId = 1;
-            string pathToFile = _config.GetValue<string>("FTP:adress") + ID + "_" + trace.UserId + "_" + file.FileName;
-            trace.TracePoints = pathToFile;
+            
 
             if (ModelState.IsValid)
             {
-                await _database.Trace.AddAsync(trace);
-                await _database.SaveChangesAsync();
-
-                FtpWebRequest request = (FtpWebRequest)WebRequest.Create(pathToFile);
-                request.Credentials = new NetworkCredential(_config.GetValue<string>("FTP:username"), _config.GetValue<string>("FTP:password"));
-                request.Method = WebRequestMethods.Ftp.UploadFile;
-
-                using (Stream ftpStream = request.GetRequestStream())
+                if (file != null)
                 {
-                    file.CopyTo(ftpStream);
+                    string GPXName = ID+"_"+trace.Id+"_"+file.FileName;
+                    string SavePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/GPX", GPXName);
+                    using (var stream = new FileStream(SavePath, FileMode.Create))
+                    {
+                        file.CopyTo(stream);
+                    }
+
+                    string filename = GPXName;
+                    trace.UserId = 1;
+                    trace.TracePoints = filename;
+
+                    await _database.Trace.AddAsync(trace);
+                    await _database.SaveChangesAsync();
+
+                    /*
+                     * Dla po³¹czenia z FTP
+                     * 
+                    FtpWebRequest request = (FtpWebRequest)WebRequest.Create(pathToFile);
+                    request.Credentials = new NetworkCredential(_config.GetValue<string>("FTP:username"), _config.GetValue<string>("FTP:password"));
+                    request.Method = WebRequestMethods.Ftp.UploadFile;
+
+                    using (Stream ftpStream = request.GetRequestStream())
+                    {
+                        file.CopyTo(ftpStream);
+                    }
+                    */
                 }
 
                 return RedirectToPage("Index");

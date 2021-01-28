@@ -3,43 +3,104 @@
 @{
     ViewData["Title"] = "MapBox";
 }
+@{
+    Layout = null;
+}
 
+<!doctype html>
+<html lang="en">
 <head>
-    <meta charset=utf-8 />
-    <title>A simple map</title>
-    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <title>GPX Trace Viewer</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/css/mapStyle.css">
     <script src='https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.js'></script>
     <link href='https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.css' rel='stylesheet' />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-gpx/1.4.0/gpx.min.js"></script>
     <style>
+        #sidebarCollapse {
+            position: absolute;
+            z-index: 9;
+            background-color: #2f89fc;
+            width: 50px;
+            height: 50px;
+            opacity: 1;
+            text-align: center;
+            margin-left: -40px;
+        }
+        #sidebarCollapse:hover {
+            background-color: #174d91;
+            opacity: 1;
+        }
         #map {
+            position: relative;
             margin-left: 0;
-            width: 99vw;
-            height: 80vh;
+            height: 100vh;
             background-color: gray;
             padding: 0;
+        }
+        #bars {
+            font-size: 30px;
+            text-shadow: 1px 1px #000000;
+            color: white;
         }
     </style>
 </head>
 <body>
-    <div id='map'></div>
-    <script>
-        L.mapbox.accessToken = 'pk.eyJ1IjoibWF4ZGVsMTIzIiwiYSI6ImNrazdkOGViMDA5cHkydmxuY2czaDZmdGoifQ.DDBmV-ncFK5iyZVuS6wlqQ';
-        var map = L.mapbox.map('map')
-            .setView([40, -74.50], 9)
-            .addLayer(L.mapbox.styleLayer('mapbox://styles/mapbox/streets-v11'));
-        const gpx = 'http://192.168.184.1:8887/mapstogpx20210125_102417.gpx'
-        new L.GPX(gpx, {
-            async: true, marker_options: {
-                wptIcons: {
-                    wptIconUrls: {
-                        '': 'https://raw.githubusercontent.com/mpetazzoni/leaflet-gpx/main/pin-icon-end.png',
-                    },
-                }
-            }
-        }).on('loaded', function (e) {
-            map.fitBounds(e.target.getBounds());
-        }).addTo(map);
 
-    </script>
+    <div class="wrapper d-flex align-items-stretch">
+        <nav id="sidebar">
+            <div class="custom-menu">
+                <button type="button" class="btn" id="sidebarCollapse" >
+                    <i class="fa fa-bars" id="bars"></i>
+                    <span class="sr-only">Toggle Menu</span>
+                </button>
+            </div>
+            <h1><a asp-page="Index" class="logo">GPX Trace Viewer</a></h1>
+            <ul class="list-unstyled components mb-5">
+                <li class="active">
+                    <a asp-route-id="@Model.trace.Id" asp-page="/Traces/Index"><span class="fa fa-pencil mr-3"></span> Panel tras</a>
+                </li>
+                <li>
+                    <a asp-route-id="@Model.trace.Id" asp-page="/OpenStreetMap"><span class="fa fa-map mr-3"></span> OpenStreetMap</a>
+                </li>
+                <li>
+                    <a asp-route-id="@Model.trace.Id" asp-page="/BingMap"><span class="fa fa-map mr-3"></span> BingMap</a>
+                </li>
+                <li>
+                    <a asp-route-id="@Model.trace.Id" asp-page="/MapBox"><span class="fa fa-map mr-3"></span> MapBox</a>
+                </li>
+            </ul>
+        </nav>
+
+        <div id="content">
+            <div id='map'></div>
+            <script>
+                L.mapbox.accessToken = 'pk.eyJ1IjoibWF4ZGVsMTIzIiwiYSI6ImNrazdkOGViMDA5cHkydmxuY2czaDZmdGoifQ.DDBmV-ncFK5iyZVuS6wlqQ';
+                var map = L.mapbox.map('map', 'mapbox.streets', { zoomControl: false })
+                    .setView([40, -74.50], 9)
+                    .addLayer(L.mapbox.styleLayer('mapbox://styles/mapbox/streets-v11'));
+                const gpx = '@Model.getWebPath()@Model.trace.TracePoints';
+                new L.GPX(gpx, {
+                    async: true, marker_options: {
+                        wptIcons: {
+                            wptIconUrls: {
+                                '': 'https://raw.githubusercontent.com/mpetazzoni/leaflet-gpx/main/pin-icon-end.png',
+                            },
+                        }
+                    }
+                }).on('loaded', function (e) {
+                    map.fitBounds(e.target.getBounds());
+                }).addTo(map);
+            </script>
+        </div>
+    </div>
+
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/popper.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/main.js"></script>
 </body>
+</html>

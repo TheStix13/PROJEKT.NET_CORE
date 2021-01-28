@@ -9,12 +9,12 @@ using Projekt.NET_CORE.wwwroot.Model;
 
 namespace Projekt.NET_CORE.Pages
 {
-    public class MapBoxModel : PageModel
+    public class BingMapsModel : PageModel
     {
         private readonly ApplicationDbContext _database;
         private readonly IConfiguration _config;
         private readonly string webPath;
-        public MapBoxModel(ApplicationDbContext db, IConfiguration config)
+        public BingMapsModel(ApplicationDbContext db, IConfiguration config)
         {
             _database = db;
             _config = config;
