@@ -1,0 +1,98 @@
+﻿@page
+@model Projekt.NET_CORE.Pages.BingMapsModel
+@{
+    ViewData["Title"] = "BingMaps";
+}
+@{
+    Layout = null;
+}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <title>GPX Trace Viewer</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/css/mapStyle.css">
+    <style>
+        #sidebarCollapse {
+            position: absolute;
+            z-index: 9;
+            background-color: #2f89fc;
+            width: 50px;
+            height: 50px;
+            opacity: 1;
+            text-align: center;
+            margin-left: -40px;
+        }
+
+            #sidebarCollapse:hover {
+                background-color: #174d91;
+                opacity: 1;
+            }
+
+        #map {
+            position: relative;
+            margin-left: 0;
+            height: 100vh;
+            background-color: gray;
+            padding: 0;
+        }
+
+        #bars {
+            font-size: 30px;
+            text-shadow: 1px 1px #000000;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="wrapper d-flex align-items-stretch">
+        <nav id="sidebar">
+            <div class="custom-menu">
+                <button type="button" class="btn" id="sidebarCollapse">
+                    <i class="fa fa-bars" id="bars"></i>
+                    <span class="sr-only">Toggle Menu</span>
+                </button>
+            </div>
+            <h1><a asp-page="Index" class="logo">GPX Trace Viewer</a></h1>
+            <ul class="list-unstyled components mb-5">
+                <li class="active">
+                    <a asp-route-id="@Model.trace.Id" asp-page="/Traces/Index"><span class="fa fa-pencil mr-3"></span> Panel tras</a>
+                </li>
+                <li>
+                    <a asp-route-id="@Model.trace.Id" asp-page="/OpenStreetMap"><span class="fa fa-map mr-3"></span> OpenStreetMap</a>
+                </li>
+                <li>
+                    <a asp-route-id="@Model.trace.Id" asp-page="/BingMap"><span class="fa fa-map mr-3"></span> BingMap</a>
+                </li>
+                <li>
+                    <a asp-route-id="@Model.trace.Id" asp-page="/MapBox"><span class="fa fa-map mr-3"></span> MapBox</a>
+                </li>
+            </ul>
+        </nav>
+
+        <div id="content">
+            <div id="myMap"></div>
+        </div>
+    </div>
+
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/popper.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/main.js"></script>
+    <script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=Ak22Tg8UA9AZMvtIQPfXhvZrK2T7sBcqHcGjr9MsgTzeaFMnhokp3ipl5xv17XKg' async defer></script>
+    <script type='text/javascript'>
+        function GetMap() {
+            var map = new Microsoft.Maps.Map('#myMap');
+            Microsoft.Maps.loadModule('Microsoft.Maps.GeoXml', function () {
+                var layer = new Microsoft.Maps.GeoXmlLayer('@Model.getWebPath()@Model.trace.TracePoints');
+                map.layers.insert(layer);
+            });
+        }
+    </script>
+</body>
+</html>
