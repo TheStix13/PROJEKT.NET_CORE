@@ -20,7 +20,6 @@ namespace Projekt.NET_CORE.Pages
             _config = config;
             webPath = config.GetValue<string>("GPX:adress");
         }
-
         public string getWebPath()
         {
             return webPath;

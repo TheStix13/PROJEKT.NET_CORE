@@ -6,7 +6,6 @@
 @{
     Layout = null;
 }
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -19,42 +18,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link type="text/css" rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <link type="text/css" rel="stylesheet" href="~/css/mapStyle.css" />
-    <style>
-        #sidebarCollapse {
-            position: absolute;
-            z-index: 9;
-            background-color: #2f89fc;
-            width: 50px;
-            height: 50px;
-            opacity: 1;
-            text-align: center;
-            margin-left: -40px;
-        }
-
-            #sidebarCollapse:hover {
-                background-color: #174d91;
-                opacity: 1;
-            }
-
-        #map {
-            position: relative;
-            z-index: 1;
-            margin-left: 0;
-            height: 100vh;
-            width: 100vw;
-            background-color: gray;
-            padding: 0;
-        }
-
-        #bars {
-            font-size: 30px;
-            text-shadow: 1px 1px #000000;
-            color: white;
-        }
-    </style>
+    <link rel="stylesheet" href="~/css/map.css">
 </head>
 <body>
-
     <div class="wrapper d-flex align-items-stretch">
         <nav id="sidebar">
             <div class="custom-menu">
@@ -101,10 +67,8 @@
                     map.fitBounds(e.target.getBounds());
                 }).addTo(map);
             </script>
-
         </div>
     </div>
-
     <script src="~/js/jquery.min.js"></script>
     <script src="~/js/popper.js"></script>
     <script src="~/js/bootstrap.min.js"></script>
