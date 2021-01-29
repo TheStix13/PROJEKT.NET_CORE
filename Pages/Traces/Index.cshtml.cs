@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -14,6 +15,7 @@ namespace Projekt.NET_CORE.Pages.ViewTraces
 {
     public class IndexModel : PageModel
     {
+        private object blokowacz = new object();
         private readonly ApplicationDbContext _database;
         private readonly IConfiguration _config;
         public IndexModel(ApplicationDbContext db, IConfiguration config)
@@ -31,38 +33,31 @@ namespace Projekt.NET_CORE.Pages.ViewTraces
         public async Task<IActionResult> OnPostDelete(int id)
         {
             var trace = await _database.Trace.FindAsync(id);
-            if(trace == null)
-            {
-                return NotFound();
-            }
-            try
-            {
-                if(System.IO.File.Exists(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/GPX", trace.TracePoints)))
-                {
-                    System.IO.File.Delete(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/GPX", trace.TracePoints));
-                }
-            }
-            catch(IOException e)
-            {
-                Console.WriteLine(e.Message);
-            }
-
-            /*
-             *Dla po³¹czenia i wrzucania plików na FTP
-             *
-            FtpWebRequest request = (FtpWebRequest)WebRequest.Create(trace.TracePoints);
-            request.Method = WebRequestMethods.Ftp.DeleteFile;
-            request.Credentials = new NetworkCredential(_config.GetValue<string>("FTP:username"), _config.GetValue<string>("FTP:password"));
-
-            using (FtpWebResponse response = (FtpWebResponse)request.GetResponse())
-            {
-                Console.WriteLine(response.StatusDescription);
-            }
-            */
-
+            Object path = (Object)trace;
+            Thread watek = new Thread(deleteFile);
+            watek.Start(path);
             _database.Trace.Remove(trace);
             await _database.SaveChangesAsync();
             return RedirectToPage("Index");
+        }
+
+        public void deleteFile(Object o)
+        {
+            lock(blokowacz)
+            {
+                Trace trace = (Trace)o;
+                try
+                {
+                    if (System.IO.File.Exists(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/GPX", trace.TracePoints)))
+                    {
+                        System.IO.File.Delete(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/GPX", trace.TracePoints));
+                    }
+                }
+                catch (IOException e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+            }
         }
     }
 }
